@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <h>
+        搜索结果如下：
+    </h>
+<table th:if="${results}">
+    <tr>
+        <th>PHONE</th>
+        <th>NAME</th>
+        <th>GENDER</th>
+        <th>AGE</th>
+        <th>CLUB</th>
+        <th>INTRO</th>
+    </tr>
+    <tr th:each="result : ${results}">
+        <td th:text="${result.phone}"></td>
+        <td th:text="${result.name}"></td>
+        <td th:text="${result.gender}"></td>
+        <td th:text="${result.age}"></td>
+        <td th:text="${result.club}"></td>
+        <td th:text="${result.intro}"></td>
+    </tr>
+</table>
+    <!--<form action = /NextTrainerInfo>-->
+        <!--搜索条件：<a name="club" th:text="${club}"></a> <a name="gender" th:text="${gender}"></a>-->
+    <!--<a><input type="submit" value="上一页"></a>-->
+    <!--<a><input type="submit" value="下一页"></a>-->
+    <!--第<a name="pageNum"></a>页 共2页-->
+    <!--</form>-->
+
+<a th:unless="${results}">没有结果。</a>
+</body>
