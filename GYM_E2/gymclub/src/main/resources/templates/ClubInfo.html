@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+
+<script>
+    function goTrainer(obj) {
+        var URL = obj.getAttribute('url');
+        var CONDITION = obj.getAttribute('condition');
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "condition";
+        opt.value = CONDITION;
+        temp.appendChild(opt);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+    function goPages(obj) {
+        var num = obj.getAttribute('num');
+        var name = document.getElementById('name').getAttribute('val');
+        var phone = document.getElementById('phone').getAttribute('val');
+        var temp = document.createElement("form");
+        temp.action = "/ClubInfo";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "pageNum";
+        opt.value = num;
+        var opt2 = document.createElement("textarea");
+        opt2.name = "name";
+        opt2.value = name;
+        var opt3 = document.createElement("textarea");
+        opt3.name = "phone";
+        opt3.value = phone;
+        temp.appendChild(opt);
+        temp.appendChild(opt2);
+        temp.appendChild(opt3);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<h>搜索结果如下：</h>
+<table th:if="${results}" th:inline="javascript">
+    <tr>
+        <th>PHONE</th>
+        <th>NAME</th>
+        <th>ADDRESS</th>
+        <th>INTRO</th>
+    </tr>
+    <tr th:each="result : ${results}" >
+        <td th:text="${result.phone}"></td>
+        <td><a th:text="${result.name}" th:url="${result.selfUrl}" th:condition="${result.name}" href="javascript:void(0)" onclick="goTrainer(this)"></a></td>
+        <td th:text="${result.address}"></td>
+        <td th:text="${result.intro}"></td>
+    </tr>
+    <tr>
+        搜索条件：<p th:text="${searchName}" th:val="${searchName}" id="name"></p> <p th:text="${searchPhone}" th:val="${searchPhone}" id="phone"></p>
+        第<a th:text="${pageNumber}"></a>页
+
+        <a th:num="${pageNumber-1}" href="javascript:void(0)" onclick="goPages(this)">上一页</a>
+
+        <a th:num="${pageNumber+1}" href="javascript:void(0)" onclick="goPages(this)">下一页</a>
+
+    </tr>
+</table>
+<a th:unless="${results}">没有结果。</a>
+</body>
+</html>
