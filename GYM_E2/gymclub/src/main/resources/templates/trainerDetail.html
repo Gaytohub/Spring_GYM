@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
+    <title>教练详情</title>
+</head>
+
+<script>
+    function goTrainer(obj) {
+        var URL = obj.getAttribute('url');
+        var CONDITION = obj.getAttribute('condition');
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "condition";
+        opt.value = CONDITION;
+        temp.appendChild(opt);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<table th:if="${trainer}" th:inline="javascript">
+    <tr>
+        <td th:text="${trainer.name}"></td>
+        <td th:text="${trainer.gender}"></td>
+        <td th:text="${trainer.phone}"></td>
+        <td th:text="${trainer.age}"></td>
+        <td><a th:text="${trainer.club}" th:url="${trainer.clubUrl}" th:condition="${trainer.club}" href="javascript:void(0)" onclick="goTrainer(this)"></a></td>
+        <td th:text="${trainer.intro}"></td>
+    </tr>
+</table>
+<a><button>收藏此教练</button></a>
+
+</body>
+</html>
