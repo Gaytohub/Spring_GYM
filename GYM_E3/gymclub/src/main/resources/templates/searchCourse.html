@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8" />
+    <title>搜索课程</title>
+</head>
+
+<script>
+    function goInfo(obj) {
+        var PHONE = obj.getAttribute('phone');
+        var NAME = document.getElementById("name").value;
+        var TRAINER = document.getElementById("trainer").value;
+        var temp = document.createElement("form");
+        temp.action = "/CourseInfo";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        var opt2 = document.createElement("textarea");
+        var opt3 = document.createElement("textarea");
+        opt.name = "phone";
+        opt.value = PHONE;
+        opt2.name = "name";
+        opt2.value = NAME;
+        opt3.name = "trainer";
+        opt3.value = TRAINER;
+        temp.appendChild(opt);
+        temp.appendChild(opt2);
+        temp.appendChild(opt3);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+    课程名称：
+    <input type="text" id = "name"/>
+    教练名称：
+    <input type="text" id = "trainer"/>
+    <a style=" text-decoration: none;" th:text="搜索" th:inline="javascript" th:phone="${userPhone}" href="javascript:void(0)" onclick="goInfo(this)"></a>
+</body>
+</html>
