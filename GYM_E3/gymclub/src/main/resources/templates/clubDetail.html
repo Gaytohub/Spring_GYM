@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>俱乐部详情</title>
+</head>
+
+<body>
+<table th:if="${club}">
+    <tr>
+        <td th:text="${club.name}"></td>
+        <td th:text="${club.phone}"></td>
+        <td th:text="${club.address}"></td>
+        <td th:text="${club.intro}"></td>
+    </tr>
+</table>
+<a><button>收藏此俱乐部</button></a>
+
+</body>
+</html>
