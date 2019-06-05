@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+
+<script>
+    function goCenter(obj) {
+        var PHONE = obj.getAttribute('phone');
+        var temp = document.createElement("form");
+        temp.action = "/trainerCenter";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "phone";
+        opt.value = PHONE;
+        temp.appendChild(opt);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<a th:phone="${trainerPhone}" th:inline="javascript" href="javascript:void(0)" onclick="goCenter(this)">
+    <div style="position:absolute;right:0px;border:0px ;width: 100%;height: 740px;background: darkkhaki">
+        <p
+                style="text-align: center;line-height: 650px;height: 650px;color: white;">trainer center
+        </p>
+    </div>
+</a>
+</body>
+</html>
