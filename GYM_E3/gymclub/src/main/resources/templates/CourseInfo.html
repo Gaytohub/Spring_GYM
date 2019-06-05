@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+
+<script>
+    function goApply(obj) {
+        var userPhone = obj.getAttribute('phone');
+        var courseId = obj.getAttribute('id');
+        var courseName = obj.getAttribute('name');
+        var trainer = obj.getAttribute('trainer');
+        var temp = document.createElement("form");
+        temp.action = "/sendApply";
+        temp.method = "post";
+        var opt1 = document.createElement("textarea");
+        var opt2 = document.createElement("textarea");
+        var opt3 = document.createElement("textarea");
+        var opt4 = document.createElement("textarea");
+        opt1.name = "userPhone";
+        opt1.value = userPhone;
+        opt2.name = "courseId";
+        opt2.value = courseId;
+        opt3.name = "courseName";
+        opt3.value = courseName;
+        opt4.name = "trainerName";
+        opt4.value = trainer;
+        temp.appendChild(opt1);
+        temp.appendChild(opt2);
+        temp.appendChild(opt3);
+        temp.appendChild(opt4);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+    function goPages(obj) {
+        var num = obj.getAttribute('num');
+        var name = document.getElementById('name').getAttribute('val');
+        var trainer = document.getElementById('trainer').getAttribute('val');
+        var phone = obj.getAttribute('phone');
+        var temp = document.createElement("form");
+        temp.action = "/CourseInfo";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "pageNum";
+        opt.value = num;
+        var opt2 = document.createElement("textarea");
+        opt2.name = "name";
+        opt2.value = name;
+        var opt3 = document.createElement("textarea");
+        opt3.name = "trainer";
+        opt3.value = trainer;
+        var opt4 = document.createElement("textarea");
+        opt4.name = "phone";
+        opt4.value = phone;
+        temp.appendChild(opt);
+        temp.appendChild(opt2);
+        temp.appendChild(opt3);
+        temp.appendChild(opt4);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<h>搜索结果如下：</h>
+<table th:if="${results}" th:inline="javascript">
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>TRAINER</th>
+        <th>INTRO</th>
+    </tr>
+    <tr th:each="result : ${results}" >
+        <td th:text="${result.id}"></td>
+        <td th:text="${result.name}"></td>
+        <td th:text="${result.trainer}"></td>
+        <td th:text="${result.intro}"></td>
+        <td>
+            <a style=" text-decoration: none;" th:text="预约课程" th:phone="${userPhone}" th:id="${result.id}" th:name="${result.name}" th:trainer="${result.trainer}" href="javascript:void(0)" onclick="goApply(this)">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        搜索条件：<p th:text="${searchName}" th:val="${searchName}" id="name"></p> <p th:text="${searchTrainer}" th:val="${searchTrainer}" id="trainer"></p>
+        第<a th:text="${pageNumber}"></a>页
+
+        <a th:num="${pageNumber-1}" th:phone="${userPhone}" href="javascript:void(0)" onclick="goPages(this)">上一页</a>
+
+        <a th:num="${pageNumber+1}" th:phone="${userPhone}" href="javascript:void(0)" onclick="goPages(this)">下一页</a>
+
+    </tr>
+</table>
+<a th:unless="${results}">没有结果。</a>
+</body>
+</html>
