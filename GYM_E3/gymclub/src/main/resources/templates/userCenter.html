@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    function goReject(obj,msg,duration){
+        duration=isNaN(duration)?3000:duration;
+        var m = document.createElement('div');
+        m.innerHTML = msg;
+        m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 40%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+        document.body.appendChild(m);
+        setTimeout(function() {
+            var d = 0.5;
+            m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+            m.style.opacity = '0';
+            setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+        }, duration);
+        setTimeout(function(){
+            reject(obj);
+        },1200);
+    }
+    function reject(obj) {
+        var id = obj.getAttribute('id');
+        var phone = obj.getAttribute('phone');
+        var temp = document.createElement("form");
+        temp.action = "/cancelApply";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        var opt2 = document.createElement("textarea");
+        opt.name = "id";
+        opt.value = id;
+        opt2.name = "userPhone";
+        opt2.value = phone;
+        temp.appendChild(opt);
+        temp.appendChild(opt2);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<h>你的课程预约如下：</h>
+<table th:if="${results}" th:inline="javascript">
+    <tr>
+        <th>ID</th>
+        <th>COURSE NAME</th>
+        <th>COURSE ID</th>
+        <th>TRAINER</th>
+        <th>TRAINER PHONE</th>
+        <th>USER</th>
+        <th>USER PHONE</th>
+        <th>STATUS</th>
+
+    </tr>
+    <tr th:each="result : ${results}" >
+        <td th:text="${result.id}"></td>
+        <td th:text="${result.course}"></td>
+        <td th:text="${result.courseId}"></td>
+        <td th:text="${result.trainer}"></td>
+        <td th:text="${result.trainerPhone}"></td>
+        <td th:text="${result.user}"></td>
+        <td th:text="${result.userPhone}"></td>
+        <td th:text="${result.status}"></td>
+        <td>
+            <a style=" text-decoration: none;" th:text="取消预约" th:inline="javascript" th:phone="${result.userPhone}" th:id="${result.id}" href="javascript:void(0)" onclick="goReject(this,'操作成功！',700)"></a>
+        </td>
+    </tr>
+</table>
+<a th:unless="${results}">没有结果。</a>
+</body>
+</body>
+</html>
