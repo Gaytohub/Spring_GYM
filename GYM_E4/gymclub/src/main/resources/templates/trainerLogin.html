@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html id="ng-app">
+<head>
+    <!--修改meta头的content，表示post请求-->
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8" />
+    <title>教练登录</title>
+</head>
+<body>
+<div class="login" style="position:absolute;left:0px;border:0px ;width: 100%;height: 740px;">
+    <h1>教练登录</h1>
+    <!--增加method=post，注意要post的值的name必须和entity的属性名一致-->
+    <form action="/trlogin" method="post">
+        <input type="text" name="phone" placeholder="手机号" required="required">
+        <input type="password" name="password" placeholder="密  码" required="required">
+        <button type="submit">登录</button>
+    </form>
+</div>
+</body>
+</html>

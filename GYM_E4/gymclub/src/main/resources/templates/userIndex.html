@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
+    <title>index</title>
+</head>
+
+<script>
+    function goCourse(obj) {
+        var PHONE = obj.getAttribute('phone');
+        var temp = document.createElement("form");
+        temp.action = "/searchCourse";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "phone";
+        opt.value = PHONE;
+        temp.appendChild(opt);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+
+    function goCenter(obj) {
+        var PHONE = obj.getAttribute('phone');
+        var temp = document.createElement("form");
+        temp.action = "/userCenter";
+        temp.method = "post";
+        var opt = document.createElement("textarea");
+        opt.name = "phone";
+        opt.value = PHONE;
+        temp.appendChild(opt);
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+</script>
+
+<body>
+<a href="/searchClub">
+    <div style="position:absolute;left:0px;border:0px ;width: 25%;height: 740px;background: darksalmon">
+        <p
+                style="text-align: center;line-height: 650px;height: 650px;color: white;">club info
+        </p>
+    </div>
+</a>
+<a href="/searchTrainer">
+    <div style="position:absolute;left:318px;border:0px ;width: 25%;height: 740px;background: darkseagreen">
+        <p
+                style="text-align: center;line-height: 650px;height: 650px;color: white;">trainer info
+        </p>
+    </div>
+</a>
+<a th:phone="${userPhone}" th:inline="javascript" href="javascript:void(0)" onclick="goCourse(this)">
+    <div style="position:absolute;right:319px;border:0px ;width: 25%;height: 740px;background: darkturquoise">
+        <p
+                style="text-align: center;line-height: 650px;height: 650px;color: white;">course info
+        </p>
+    </div>
+</a>
+<a th:phone="${userPhone}" th:inline="javascript" href="javascript:void(0)" onclick="goCenter(this)">
+    <div style="position:absolute;right:1px;border:0px ;width: 25%;height: 740px;background: darkkhaki">
+        <p
+                style="text-align: center;line-height: 650px;height: 650px;color: white;">user center
+        </p>
+    </div>
+</a>
+</body>
+</html>
